@@ -3,22 +3,8 @@ name: Android CI
 on:
   push:
     branches: [main, master]
-    paths:
-      - 'app/**'
-      - 'gradle/**'
-      - 'build.gradle*'
-      - 'settings.gradle*'
-      - 'gradle.properties'
-      - '.github/workflows/android-ci.yml'
   pull_request:
     branches: [main, master]
-    paths:
-      - 'app/**'
-      - 'gradle/**'
-      - 'build.gradle*'
-      - 'settings.gradle*'
-      - 'gradle.properties'
-      - '.github/workflows/android-ci.yml'
   workflow_dispatch:
 
 concurrency:
@@ -43,6 +29,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+
+      - name: Restore debug keystore
+        run: |
+          if [ -f debug.keystore.base64 ] && [ ! -f debug.keystore ]; then
+            base64 -d debug.keystore.base64 > debug.keystore || true
+          fi
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4

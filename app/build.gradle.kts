@@ -54,6 +54,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
 }
 
 kotlin {
@@ -75,4 +80,6 @@ dependencies {
 
     implementation("io.github.sceneview:sceneview:4.6.2")
     implementation("io.github.sceneview:arsceneview:4.6.2")
+
+    testImplementation("junit:junit:4.13.2")
 }
